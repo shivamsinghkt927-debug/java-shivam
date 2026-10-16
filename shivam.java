@@ -1,32 +1,38 @@
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 
 public class shivam {
+    static class job{
+    int id;
+    int profit;
+    int deadline;
+    
+    public job (int i,int d,int p){
+id=i;
+int deadline=d;
+int profit=p;
+    }}
     public static void main(String[] args) {
-        Integer[] Coins = {1, 2, 5, 10, 20, 50, 100, 200, 500, 2000};
-        Arrays.sort(Coins, Comparator.reverseOrder());
+        int jobsInfo[][] = {{4,20},{1,10},{1,40},{1,30}};
+        ArrayList<job>jobs=new ArrayList<>();
+    for(int i=0;i<jobsInfo.length;i++){
+        jobs.add(new job(i,jobsInfo[i][0],jobsInfo[i][1]));
 
-        int CountofCoins = 0;
-        int Amount = 590;
-        ArrayList<Integer> ans = new ArrayList<>();
-
-        for (int i = 0; i < Coins.length; i++) {
-            if (Coins[i] <= Amount) {
-                while (Coins[i] <= Amount) {
-                    CountofCoins++;
-                    ans.add(Coins[i]);
-                    Amount -= Coins[i];
-                }
-            }
+    } 
+    Collections.sort(jobs,(obj1,obj2)-> obj2.profit-obj1.profit);
+    ArrayList<Integer>seq =new ArrayList<>();
+    int time =0;
+    for(int i=0;i<jobs.size();i++){
+        job curr =jobs.get(i);
+        if(curr.deadline>time){
+            seq.add(curr.id);
+            time++;
         }
-
-        System.out.println("Count of Coins: " + CountofCoins);
-        for (int i = 0; i < ans.size(); i++) {
-            System.out.print(ans.get(i) + " ");
-        }
-        System.out.println();
     }
-}
+    System.out.println("max jobs="+seq.size());
+    for(int i=0;i<seq.size();i++){
+        System.out.print(seq.get(i)+"");
+
+    }
+System.out.println();
+   }}
     
