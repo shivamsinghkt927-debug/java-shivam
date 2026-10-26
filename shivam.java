@@ -1,86 +1,33 @@
 
-import java.util.*;
+
+// Custom Node class for binary tree
+class Node {
+    int data;
+    Node left, right;
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
 
 
 public class shivam {
-static class Node{
-    int data ;
-    Node left;
-Node right;
-Node(int data){
-    this.data=data;
-    this.left=null;
-    this.right=null;
-}
-}
-static class BinaryTree {
-    static int idx =-1;
-    public static Node buildTree(int nodes[]){
-        idx++;
-        if(nodes[idx]==-1){
-            return null;
-
+    public static void KLevel(Node root, int level, int k) {
+        if (root == null) {
+            return;
         }
-Node newNode = new Node(nodes[idx]);
-newNode.left=buildTree(nodes);
-newNode.right=buildTree(nodes);
-    return newNode;
-}
-}
-public static void levelOrder(Node root) {
-   
-    if(root==null){
-        return;
-    }
-    Queue <Node>q =new LinkedList<>();
-     q.add(root);
-    q.add(null);
-    while(!q.isEmpty()){
-        Node currNode=q.remove();
-        if(currNode==null){
-            System.out.println();
-            if(q.isEmpty()){
-                break;
-            }else{
-                q.add(null);
-            }
+        if (level == k) {
+            System.out.print(root.data + " ");
+            return;
         }
-        else{System.out.println(currNode.data+"");
-            if(currNode.left !=null){
-                q.add(currNode.left);
-            }
-           if(currNode.left !=null){
-                q.add(currNode.left);}
-        }
+        KLevel(root.left, level + 1, k);
+        KLevel(root.right, level + 1, k);
     }
- 
-}
-public static boolean isIdentical(Node node,Node subRoot){
-    if(node==null&& subRoot==null){
-        return true;
-    }else if(node==null|| subRoot==null||node.data!=subRoot.data){
-return false;
+    public static void main(String[] args) {
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        int K = 2;
+        KLevel(root, 1, K);
     }
-    if(!isIdentical(node.left, subRoot.left)){
-        return false;
-    }
-     if(!isIdentical(node.right, subRoot.right)){
-        return false;
-}
-return true;}
-public static boolean isSubtree(Node root,Node subRoot) {
-    if(root==null){
-        return false;
-    }
-    if(root.data==subRoot.data ){
-        return true;
-    }
-}
-return
-public static void main(String[] args) {
-    int nodes[]={1,2,4,-1,-1,5,-1,-1,3,-1,-1};
-    BinaryTree tree =new BinaryTree();
-    Node root = tree.buildTree(nodes);
-    tree.levelOrder(root);
-}
 }
