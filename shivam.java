@@ -1,33 +1,41 @@
+public class shivam{
+    static class Node {
+        int data;
+        Node left;
+        Node right;
 
-
-// Custom Node class for binary tree
-class Node {
-    int data;
-    Node left, right;
-    Node(int data) {
-        this.data = data;
-        left = right = null;
+        Node(int data) {
+            this.data = data;
+        }
     }
-}
 
+    public static Node insert(Node root, int val) {
+        if (root == null) {
+            return new Node(val);
+        }
+        if (root.data > val) {
+            root.left = insert(root.left, val);
+        } else {
+            root.right = insert(root.right, val);
+        }
+        return root;
+    }
 
-public class shivam {
-    public static void KLevel(Node root, int level, int k) {
+    public static void inorder(Node root) {
         if (root == null) {
             return;
         }
-        if (level == k) {
-            System.out.print(root.data + " ");
-            return;
-        }
-        KLevel(root.left, level + 1, k);
-        KLevel(root.right, level + 1, k);
+        inorder(root.left);
+        System.out.print(root.data + " ");
+        inorder(root.right);
     }
+
     public static void main(String[] args) {
-        Node root = new Node(1);
-        root.left = new Node(2);
-        root.right = new Node(3);
-        int K = 2;
-        KLevel(root, 1, K);
+        int[] values = {5, 1, 3, 4, 2, 7};
+        Node root = null;
+        for (int value : values) {
+            root = insert(root, value);
+        }
+        inorder(root);
     }
 }
