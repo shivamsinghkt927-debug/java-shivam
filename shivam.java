@@ -44,7 +44,16 @@ public class shivam {
             PrintInRange(root.left, k1, k2);
         }
     }
-
+public static boolean IsValidBST(Node root,Node min,Node max){
+    if(root==null){
+        return true;
+    }
+    if(min!=null &&root.data<=min.data){
+         return false;}
+        else if (max!=null && root.data>=max.data){
+            return false;
+        }
+    return IsValidBST(root.left,min,root)&&IsValidBST(root.right,root,max);}
     public static void main(String[] args) {
         int[] values = {5, 3, 7, 2, 4, 6, 8};
         Node root = null;
@@ -53,6 +62,8 @@ public class shivam {
         }
         Inorder(root);
         System.out.println();
-        PrintInRange(root, 4, 7);
-    }
-}
+        if(IsValidBST(root,null,null)){
+            System.out.println("Valid BST");
+        }else{
+            System.out.println("Not a Valid BST");
+        }}}
