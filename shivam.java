@@ -1,4 +1,18 @@
 public class shivam {
+static class Info {
+    int min;
+    int max;
+    boolean isBST;
+    int size;
+
+    Info(int min, int max, boolean isBST, int size) {
+        this.min = min;
+        this.max = max;
+        this.isBST = isBST;
+        this.size = size;
+    }
+}
+
 static class Node{
     int data;
     Node left;
@@ -8,29 +22,21 @@ static class Node{
         this.left=this.Right=null;
     }
 }
-public static void preorder(Node root){
+public static int MaxBST=0;
+public static Info LargestBST(Node root){
     if(root==null){
-        return;
-    }
-    System.out.print(root.data+"");
-    preorder(root.left);
-    preorder(root.Right);
-
-}
-public static Node CreateBST(int arr[],int st,int end){
-    if(st>end){
-        return null;
+        return new Info(Integer.MAX_VALUE,Integer.MIN_VALUE,true,0);
 
     }
-    int mid =(st+end)/2;
-    Node root=new Node(arr[mid]);
-    root.left=CreateBST(arr,st,mid-1);
-    root.Right=CreateBST(arr,mid+1,end);
-    return root;
-}
-public static void main(String args[]){
-    int arr[]={1,2,3,4,5,6,7};
-    Node root=CreateBST(arr,0,arr.length-1);
-    preorder(root);
+    Info leftInfo=LargestBST(root.left);
+    Info rightInfo=LargestBST(root.Right);
+    int size=leftInfo.size+rightInfo.size+1;
+    int intmin = Math.min(root.data, Math.min(leftInfo.min, rightInfo.min));
+    int intmax = Math.max(root.data, Math.max(leftInfo.max, rightInfo.max));
+    if (!leftInfo.isBST || !rightInfo.isBST || root.data <= leftInfo.max || root.data >= rightInfo.min) {
+        return new Info(intmin, intmax, false, size);
+    }
+    MaxBST = Math.max(MaxBST, size);
+    return new Info(intmin,intmax,true,size);
 }
 }
